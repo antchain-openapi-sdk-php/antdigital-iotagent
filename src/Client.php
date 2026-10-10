@@ -78,6 +78,30 @@ use AntChain\IOTAGENT\Models\ListfilesBlockchainBotIotagentSessionRequest;
 use AntChain\IOTAGENT\Models\ListfilesBlockchainBotIotagentSessionResponse;
 use AntChain\IOTAGENT\Models\FliedownloadBlockchainBotIotagentSessionRequest;
 use AntChain\IOTAGENT\Models\FliedownloadBlockchainBotIotagentSessionResponse;
+use AntChain\IOTAGENT\Models\FilepreviewBlockchainBotIotagentSessionRequest;
+use AntChain\IOTAGENT\Models\FilepreviewBlockchainBotIotagentSessionResponse;
+use AntChain\IOTAGENT\Models\PushBlockchainBotIotagentAudioscribeRequest;
+use AntChain\IOTAGENT\Models\PushBlockchainBotIotagentAudioscribeResponse;
+use AntChain\IOTAGENT\Models\ExecBlockchainBotIotagentPluginRequest;
+use AntChain\IOTAGENT\Models\ExecBlockchainBotIotagentPluginResponse;
+use AntChain\IOTAGENT\Models\PushBlockchainBotIotagentWorkspaceRequest;
+use AntChain\IOTAGENT\Models\PushBlockchainBotIotagentWorkspaceResponse;
+use AntChain\IOTAGENT\Models\ConfirmBlockchainBotIotagentWorkspaceRequest;
+use AntChain\IOTAGENT\Models\ConfirmBlockchainBotIotagentWorkspaceResponse;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\LoginurlBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\LoginurlBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\PlayhistoryBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\PlayhistoryBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\FavoritesBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\FavoritesBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\LyricsBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\LyricsBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\LikeBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\LikeBlockchainBotIotagentMusicResponse;
+use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicRequest;
+use AntChain\IOTAGENT\Models\LogoutBlockchainBotIotagentMusicResponse;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse;
 use AntChain\IOTAGENT\Models\SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
@@ -223,7 +247,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.9",
+                    "sdk_version" => "1.2.14",
                     "_prod_code" => "IOTAGENT",
                     "_prod_channel" => "undefined"
                 ];
@@ -1086,6 +1110,326 @@ class Client {
     public function fliedownloadBlockchainBotIotagentSessionEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return FliedownloadBlockchainBotIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.fliedownload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件预览
+     * Summary: 文件预览
+     * @param FilepreviewBlockchainBotIotagentSessionRequest $request
+     * @return FilepreviewBlockchainBotIotagentSessionResponse
+     */
+    public function filepreviewBlockchainBotIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->filepreviewBlockchainBotIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件预览
+     * Summary: 文件预览
+     * @param FilepreviewBlockchainBotIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FilepreviewBlockchainBotIotagentSessionResponse
+     */
+    public function filepreviewBlockchainBotIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FilepreviewBlockchainBotIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.filepreview", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 插件接口
+     * Summary: 插件接口
+     * @param PushBlockchainBotIotagentAudioscribeRequest $request
+     * @return PushBlockchainBotIotagentAudioscribeResponse
+     */
+    public function pushBlockchainBotIotagentAudioscribe($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushBlockchainBotIotagentAudioscribeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 插件接口
+     * Summary: 插件接口
+     * @param PushBlockchainBotIotagentAudioscribeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushBlockchainBotIotagentAudioscribeResponse
+     */
+    public function pushBlockchainBotIotagentAudioscribeEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "blockchain.bot.iotagent.audioscribe.push",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $pushBlockchainBotIotagentAudioscribeResponse = new PushBlockchainBotIotagentAudioscribeResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $pushBlockchainBotIotagentAudioscribeResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return PushBlockchainBotIotagentAudioscribeResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.audioscribe.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 插件通用HTTP接口
+     * Summary: 插件通用HTTP接口
+     * @param ExecBlockchainBotIotagentPluginRequest $request
+     * @return ExecBlockchainBotIotagentPluginResponse
+     */
+    public function execBlockchainBotIotagentPlugin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execBlockchainBotIotagentPluginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 插件通用HTTP接口
+     * Summary: 插件通用HTTP接口
+     * @param ExecBlockchainBotIotagentPluginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecBlockchainBotIotagentPluginResponse
+     */
+    public function execBlockchainBotIotagentPluginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecBlockchainBotIotagentPluginResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.plugin.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件上传
+     * Summary: 文件上传
+     * @param PushBlockchainBotIotagentWorkspaceRequest $request
+     * @return PushBlockchainBotIotagentWorkspaceResponse
+     */
+    public function pushBlockchainBotIotagentWorkspace($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushBlockchainBotIotagentWorkspaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传
+     * Summary: 文件上传
+     * @param PushBlockchainBotIotagentWorkspaceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushBlockchainBotIotagentWorkspaceResponse
+     */
+    public function pushBlockchainBotIotagentWorkspaceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushBlockchainBotIotagentWorkspaceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.workspace.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件上传确认
+     * Summary: 文件上传确认
+     * @param ConfirmBlockchainBotIotagentWorkspaceRequest $request
+     * @return ConfirmBlockchainBotIotagentWorkspaceResponse
+     */
+    public function confirmBlockchainBotIotagentWorkspace($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmBlockchainBotIotagentWorkspaceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传确认
+     * Summary: 文件上传确认
+     * @param ConfirmBlockchainBotIotagentWorkspaceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmBlockchainBotIotagentWorkspaceResponse
+     */
+    public function confirmBlockchainBotIotagentWorkspaceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmBlockchainBotIotagentWorkspaceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.workspace.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * @param StatusBlockchainBotIotagentMusicRequest $request
+     * @return StatusBlockchainBotIotagentMusicResponse
+     */
+    public function statusBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * Summary: 查询设备的云音乐登录状态及用户/VIP 信息。
+     * @param StatusBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusBlockchainBotIotagentMusicResponse
+     */
+    public function statusBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * @param LoginurlBlockchainBotIotagentMusicRequest $request
+     * @return LoginurlBlockchainBotIotagentMusicResponse
+     */
+    public function loginurlBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->loginurlBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * Summary: 获取云音乐 H5 OAuth 登录 URL（用于设备端引导用户授权）
+     * @param LoginurlBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return LoginurlBlockchainBotIotagentMusicResponse
+     */
+    public function loginurlBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return LoginurlBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.loginurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询云音乐播放历史
+     * Summary: 查询云音乐播放历史
+     * @param PlayhistoryBlockchainBotIotagentMusicRequest $request
+     * @return PlayhistoryBlockchainBotIotagentMusicResponse
+     */
+    public function playhistoryBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->playhistoryBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询云音乐播放历史
+     * Summary: 查询云音乐播放历史
+     * @param PlayhistoryBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PlayhistoryBlockchainBotIotagentMusicResponse
+     */
+    public function playhistoryBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PlayhistoryBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.playhistory", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分页查询红心歌曲
+     * Summary: 分页查询红心歌曲
+     * @param FavoritesBlockchainBotIotagentMusicRequest $request
+     * @return FavoritesBlockchainBotIotagentMusicResponse
+     */
+    public function favoritesBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->favoritesBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分页查询红心歌曲
+     * Summary: 分页查询红心歌曲
+     * @param FavoritesBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FavoritesBlockchainBotIotagentMusicResponse
+     */
+    public function favoritesBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FavoritesBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.favorites", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询指定歌曲的歌词。
+     * Summary: 查询指定歌曲的歌词。
+     * @param LyricsBlockchainBotIotagentMusicRequest $request
+     * @return LyricsBlockchainBotIotagentMusicResponse
+     */
+    public function lyricsBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->lyricsBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询指定歌曲的歌词。
+     * Summary: 查询指定歌曲的歌词。
+     * @param LyricsBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return LyricsBlockchainBotIotagentMusicResponse
+     */
+    public function lyricsBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return LyricsBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.lyrics", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 对一首歌进行红心/取消红心操作。
+     * Summary: 对一首歌进行红心/取消红心操作。
+     * @param LikeBlockchainBotIotagentMusicRequest $request
+     * @return LikeBlockchainBotIotagentMusicResponse
+     */
+    public function likeBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->likeBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 对一首歌进行红心/取消红心操作。
+     * Summary: 对一首歌进行红心/取消红心操作。
+     * @param LikeBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return LikeBlockchainBotIotagentMusicResponse
+     */
+    public function likeBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return LikeBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.like", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 退出云音乐登录，清理 token
+     * Summary: 退出云音乐登录，清理 token
+     * @param LogoutBlockchainBotIotagentMusicRequest $request
+     * @return LogoutBlockchainBotIotagentMusicResponse
+     */
+    public function logoutBlockchainBotIotagentMusic($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->logoutBlockchainBotIotagentMusicEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 退出云音乐登录，清理 token
+     * Summary: 退出云音乐登录，清理 token
+     * @param LogoutBlockchainBotIotagentMusicRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return LogoutBlockchainBotIotagentMusicResponse
+     */
+    public function logoutBlockchainBotIotagentMusicEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return LogoutBlockchainBotIotagentMusicResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.music.logout", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
